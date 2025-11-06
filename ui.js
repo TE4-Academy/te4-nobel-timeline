@@ -9,4 +9,10 @@ export function renderStart(root){
     </div>
     </section>
     `;
+
+    btn.addEventListener('click', (e) => {
+        const level = e.currentTarget.dataset.level;
+        document.dispatchEvent(new CustomEvent('difficulty:selected', { detail: { level } }));
+    });
 }
+
