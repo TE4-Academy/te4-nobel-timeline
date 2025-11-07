@@ -16,3 +16,10 @@ export function wireDnD(root){
         }, {passive: true });
     });
 }
+
+export function readUserOrder(root) {
+    return [...root.querySelectorAll('#timeline > .card')]
+    .map(z => z.firstElementChild?.dataset?.id)
+    .filter(Boolean)
+    .map(Number);
+}
