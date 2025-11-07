@@ -4,6 +4,8 @@ import { countBy } from './game.js';
 import { shuffle } from './data.js';
 import { renderBoard } from './ui.js';
 import { wireDnD } from './dnd.js';
+import { setPools, submitAndScore } from './game.js';
+import { readUserOrder } from './dnd.js';
 const app = document.getElementById('app');
 renderStart(app);
 
@@ -17,5 +19,18 @@ document.addEventListener('difficulty:selected', async (e) => {
     const pool = shuffle(all).slice(0,count);
     renderBoard(app, pool);
     wireDnD(app);
+    setPools(pool);
+    app.querySelector('#submit').addEventListener('click', () => {
+        const order = readUserOrder(app);
+        if (order.length !== pool.length) return alert('Placera alla kort!');
+        const { score, correctCount} = submitAndScore(order);
+        app.innerHTML = `
+        <section class="card text-center">
+        <h2 class="text-2xl font-bold mb-2">Resultat</h2>
+        <p class="mb-4">Rätt: ${correctCount}/${pool.length} • Poäng: <span class="score-display">${score}</span></p>
+        <button id="again" class="btn btn-outline py-4 text-base w-full md:w-auto">Spela igen</button>
+        </section>`;
+        app.querySelector('#again').addEventListener('click', () => location.reload());
+    })
     console.log(`Du valde ${level} (${count} kort)`);
 });
