@@ -6,7 +6,7 @@ import { renderBoard } from './ui.js';
 import { wireDnD } from './dnd.js';
 const app = document.getElementById('app');
 renderStart(app);
-wireDnD(app);
+
 
 loadNobelData().then(list => console.log('Antal pristagare:', list.length));
 
