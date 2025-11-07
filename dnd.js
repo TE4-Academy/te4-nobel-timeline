@@ -1,13 +1,13 @@
 export function wireDnD(root){
     let active = null;
     root.querySelectorAll('#deck .card').forEach(card =>{
-        card.AddEventListener('pointerdown', () => {
+        card.addEventListener('pointerdown', () => {
             active = card;
             card.classList.add('ring-2', 'ring-nobel-gold');
         }, { passive: true });
     });
     root.querySelectorAll('#timeline > .card').forEach(zone => {
-        zone.AddEventListener('pointerup', () => {
+        zone.addEventListener('pointerup', () => {
             if(!active) return;
             zone.innerHTML='';
             zone.appendChild(active);
