@@ -12,7 +12,7 @@ export function setPools(laureates) {
 
 export function submitAndScore(userIds) {
     const per = { easy:100, medium:125, hard:150 }[gameState.difficulty];
-    const correct = userIds.filter((id,i) => id===gameState.orderCorrect[i]).length;
+    let correct = userIds.filter((id,i) => id===gameState.orderCorrect[i]).length;
     let score = correct * per;
     const pct = correct / userIds.length;
     if (pct === 1) score += 200; else if (pct >= 0.8) score += 100;
