@@ -24,6 +24,16 @@ document.addEventListener('difficulty:selected', async (e) => {
         const order = readUserOrder(app);
         if (order.length !== pool.length) return alert('Placera alla kort!');
         const { score, correctCount} = submitAndScore(order);
+
+        const live = document.getElementById('result-live') || (() => {
+            const d = document.getElementById('div');
+            d.id = 'result-live';
+            d.className = 'sr-only';
+            document.body.appendChild(d);
+            return d;
+        })();
+        live.textContent = `Resultat klart. Du fick ${correctCount} rätt.`;
+
         app.innerHTML = `
         <section class="card text-center">
         <h2 class="text-2xl font-bold mb-2">Resultat</h2>
@@ -31,6 +41,13 @@ document.addEventListener('difficulty:selected', async (e) => {
         <button id="again" class="btn btn-outline py-4 text-base w-full md:w-auto">Spela igen</button>
         </section>`;
         app.querySelector('#again').addEventListener('click', () => location.reload());
+
+        [...app.querySelectorAll('#timeline > .card')].forEach((zone,i)=>{
+            const placedId = zone.firstElementChild?.dataset?.id;
+            const ok = placedId && Number(placedId) === gameState.orderCorrect[i];
+            zone.classList.remove('ring-2', 'ring-red-500', 'ring-green-500');
+            zone.classList.add('ring-2', ok ? 'ring-green-500' : 'ring-red-500');
+        });
     })
     console.log(`Du valde ${level} (${count} kort)`);
 });
