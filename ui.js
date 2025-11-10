@@ -19,7 +19,7 @@ export function renderStart(root) {
   });
 }
 
-export function renderBoard(root, cards) {
+export function renderBoard(root, cards) { 
   root.innerHTML = `
     <section class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
     <div>
@@ -52,7 +52,7 @@ export function renderBoard(root, cards) {
     zone.className =
       "card min-h-24 flex items-center justify-center text-neutral-500";
     zone.dataset.slot = i;
-    zone.innerHTML = '<span class="text-sm">Släpp här</span>';
+    zone.innerHTML = '<span data-placeholder class="text-sm">Släpp här</span>';
     timeline.appendChild(zone);
   }
 }
