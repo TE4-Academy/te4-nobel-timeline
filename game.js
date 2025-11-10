@@ -7,7 +7,7 @@ export function setDifficulty(level){
 export function countBy(level){
     if(level==='easy') return 5;
     if(level==='medium') return 8;
-    return 75;
+    return 12;
 }
 
 export function setPools(laureates) {
