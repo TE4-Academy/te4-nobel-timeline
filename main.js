@@ -24,6 +24,16 @@ document.addEventListener('difficulty:selected', async (e) => {
         const order = readUserOrder(app);
         if (order.length !== pool.length) return alert('Placera alla kort!');
         const { score, correctCount} = submitAndScore(order);
+
+        const live = document.getElementById('result-live') || (() => {
+            const d = document.getElementById('div');
+            d.id = 'result-live';
+            d.className = 'sr-only';
+            document.body.appendChild(d);
+            return d;
+        })();
+        live.textContent = `Resultat klart. Du fick ${correctCount} rätt.`;
+
         app.innerHTML = `
         <section class="card text-center">
         <h2 class="text-2xl font-bold mb-2">Resultat</h2>
