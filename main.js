@@ -31,6 +31,13 @@ document.addEventListener('difficulty:selected', async (e) => {
         <button id="again" class="btn btn-outline py-4 text-base w-full md:w-auto">Spela igen</button>
         </section>`;
         app.querySelector('#again').addEventListener('click', () => location.reload());
+
+        [...app.querySelectorAll('#timeline > .card')].forEach((zone,i)=>{
+            const placedId = zone.firstElementChild?.dataset?.id;
+            const ok = placedId && Number(placedId) === gameState.orderCorrect[i];
+            zone.classList.remove('ring-2', 'ring-red-500', 'ring-green-500');
+            zone.classList.add('ring-2', ok ? 'ring-green-500' : 'ring-red-500');
+        });
     })
     console.log(`Du valde ${level} (${count} kort)`);
 });
