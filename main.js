@@ -26,7 +26,7 @@ document.addEventListener('difficulty:selected', async (e) => {
         const { score, correctCount} = submitAndScore(order);
 
         const live = document.getElementById('result-live') || (() => {
-            const d = document.getElementById('div');
+            const d = document.createElement('div');
             d.id = 'result-live';
             d.className = 'sr-only';
             document.body.appendChild(d);
