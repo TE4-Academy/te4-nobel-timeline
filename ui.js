@@ -19,7 +19,7 @@ export function renderStart(root) {
   });
 }
 
-export function renderBoard(root, cards) {
+export function renderBoard(root, cards) { 
   root.innerHTML = `
     <section class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
     <div>

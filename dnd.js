@@ -40,7 +40,7 @@ export function wireDnD(root){
             //flytta aktiva kortet till målzonen
             zone.appendChild(active);
 
-            // om origin var en zon och blev tom -> återskapa placeholder
+            // om origin var en zon och blev tom -> återskapa placeholder 
             if (origin && origin !== deck  && origin.children.length === 0) {
                 ensurePlaceholder(origin);
             }
