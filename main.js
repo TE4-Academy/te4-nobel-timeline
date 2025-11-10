@@ -28,6 +28,7 @@ document.addEventListener('difficulty:selected', async (e) => {
         const { score, correctCount} = submitAndScore(order);
         saveLastScore({ score, correctCount, total: pool.length, ts: Date.now()});
 
+        //Den här koden gör i princip ingenting
         const live = document.getElementById('result-live') || (() => {
             const d = document.createElement('div');
             d.id = 'result-live';
@@ -36,6 +37,7 @@ document.addEventListener('difficulty:selected', async (e) => {
             return d;
         })();
         live.textContent = `Resultat klart. Du fick ${correctCount} rätt.`;
+        //till hit alltså
 
         app.innerHTML = `
         <section class="card text-center">
