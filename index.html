@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="starter-kit/styles.css" />
   </head>
+
   <body class="bg-neutral-50">
     <header class="header sticky top-0 pt-[env(safe-area-inset-top)] z-40">
       <h1 class="text-2xl font-bold">Nobel Timeline</h1>
@@ -15,3 +16,65 @@
     <script type="module" src="main.js"></script>
   </body>
 </html>
+
+<style>
+  :root{
+    --forest:#2E7D32;
+    --moss:#4E8B5A;
+    --sand:#EFEAE3;
+    --walnut:#5B4636;
+    --gold:#C5A572;
+    --gold-dark:#A38A5F;
+  }
+  body {
+    color:var(--charcoal); background:#FAF9F6;}
+
+.header {
+    background:var(--sand); color:var(--walnut);
+  }
+
+  .btn{border-radius:0.75rem;}
+  .btn-primary{ background:var(--gold) !important; color:#fff !important; }
+  .btn-primary:hover{ background:var(--gold-dark) !important; }
+  .btn-secondary{ background:var(--forest) !important; color:#fff !important;}
+  .btn-secondary:hover{ background:var(--moss) !important; }
+
+  .card{background:#fff; border-radius:0.75;}
+
+  .timeline-slot{
+  background:var(--sand);
+  Border:1px solid transparent;
+  min-height:6rem;
+  display:flex; align-items:center; justify-content:center;
+  color:#6b7280; border-radius:0.75rem;
+}
+
+.timeline-slot:hover,.timeline-slot:focus-within{
+  border-color:var(--gold);
+  box-shadow: 0 0 0 2px var(--gold);
+}
+
+.badge-gold{background:var(--gold); color:#fff; padding:2px 8px; border-radius:9999px; font-size:12px;}
+.ring-gold{box-shadow:0 0 0 3px var(--gold)inset;}
+.ring-correct{box-shadow:0 0 0 2px #16a34a inset; }
+.ring-wrong{box-shadow:0 0 0 2px #dc2626 inset;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</style>
