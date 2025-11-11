@@ -17,7 +17,7 @@ export function wireDnD(root){
             card.classList.add('ring-gold');
         });
     });
-    root.querySelectorAll('#timeline > .card').forEach(zone => {
+    root.querySelectorAll('#timeline > .timeline-slot').forEach(zone => {
         zone.addEventListener('pointerup', (e) => {
             e.preventDefault();
             if(!active) return;
@@ -52,7 +52,7 @@ export function wireDnD(root){
 }
 
 export function readUserOrder(root) {
-    return [...root.querySelectorAll('#timeline > .card')]
+    return [...root.querySelectorAll('#timeline > .timeline-slot')]
     .map(z => z.firstElementChild?.dataset?.id)
     .filter(Boolean)
     .map(Number);
