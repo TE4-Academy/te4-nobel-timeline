@@ -42,7 +42,7 @@ export function renderBoard(root, cards) {
     el.innerHTML = `
         <div class="flex items-center gap-4">
         <img src="${c.imageUrl}" alt="${c.name}" class="w-14 h-14 sm:w-16 sm:h-16 object-cover rounded-lg" loading="lazy" sizes="(max-width:640px) 56px, 64px" />
-        <div><h4 class="font-bold">${c.name}</h4><p class="text-sm text-neutral-500">${c.category}</p></div>
+        <div><h4 class="font-bold">${c.name}</h4><span class="badge-gold">${c.category}</span></div>
         </div>`;
     deck.appendChild(el);
   });
