@@ -41,7 +41,6 @@ document.addEventListener("difficulty:selected", async (e) => {
       })();
     live.textContent = `Resultat klart. Du fick ${correctCount} rätt.`;
     //till hit alltså
-
     const laureateMap = {};
     pool.forEach((l) => (laureateMap[l.id] = l));
 
