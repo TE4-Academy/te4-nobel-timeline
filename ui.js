@@ -1,14 +1,13 @@
 export function renderStart(root) {
   root.innerHTML = `
-    <section class="card">
-    <h2 class="text-2xl font-bold mb-4">Välj svårighetsgrad</h2>
-    <div class="flex flex-col gap-3">
-    <button class="btn btn-primary py-4 text-base w-full" data-level="easy">Lätt (5)</button>
-    <button class="btn btn-primary py-4 text-base w-full" data-level="medium">Medel (8)</button>
-    <button class="btn btn-primary py-4 text-base w-full" data-level="hard">Svårt (12)</button>
+  <section class="card mx-auto max-w-2xl text-center">
+    <h2 class="text-2xl font-bold mb-6">Välj svårighetsgrad</h2>
+    <div class="flex flex-col gap-4 items-center">
+      <button class="btn btn-primary py-4 text-base w-3/4 sm:w-2/3 md:w-1/2" data-level="easy">Lätt (5)</button>
+      <button class="btn btn-primary py-4 text-base w-3/4 sm:w-2/3 md:w-1/2" data-level="medium">Medel (8)</button>
+      <button class="btn btn-primary py-4 text-base w-3/4 sm:w-2/3 md:w-1/2" data-level="hard">Svår (12)</button>
     </div>
-    </section>
-    `;
+  </section>`;
 
   root.querySelectorAll("[data-level]").forEach((btn) => {
     btn.addEventListener("click", (e) => {
