@@ -14,7 +14,7 @@ export function wireDnD(root){
             e.preventDefault();
             active = card;
             origin = card.parentElement;
-            card.classList.add('ring-2', 'ring-nobel-gold');
+            card.classList.add('ring-gold');
         });
     });
     root.querySelectorAll('#timeline > .card').forEach(zone => {
@@ -44,7 +44,7 @@ export function wireDnD(root){
             if (origin && origin !== deck  && origin.children.length === 0) {
                 ensurePlaceholder(origin);
             }
-            active.classList.remove('ring-2', 'ring-nobel-gold');
+            active.classList.remove('ring-gold');
             active = null;
             origin = null;
         });

@@ -62,7 +62,7 @@ document.addEventListener("difficulty:selected", async (e) => {
 
       resultHTML += `
             <div class="card p-2 rounded-lg ${
-              isCorrect ? "ring-2 ring-green-500" : "ring-2 ring-red-500"
+              isCorrect ? "ring-correct" : "ring-wrong"
             }">
                 <div class="flex items-center justify-between gap-4">
                     <div class="flex-1">
