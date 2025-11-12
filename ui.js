@@ -22,8 +22,8 @@ export function renderStart(root) {
 export function renderBoard(root, cards) {
   root.innerHTML = `
 <section class="max-w-3xl mx-auto">
-    <div class="sticky top-[env(safe-area-inset-top)] z-10 bg-neutral-50/80 backdrop-blur pb-3">
-    <h2 class="text-xl font-bold pt-2">Dra och släpp korten för att sortera pristagarna från äldst till yngst (efter år)</h2>
+    <div class="top-[env(safe-area-inset-top)] z-10 bg-neutral-50/80 backdrop-blur pb-3">
+    <h2 class="text-xl font-bold pt-2 text-center">Sortera nobelpristagarna i ordningen de vann nobelpriset, från äldst till yngst</h2>
     </div>
 
     <ul id="sortable-list" class="mt-2 space-y-3" aria-label="Sortera pristagarna"></ul>
