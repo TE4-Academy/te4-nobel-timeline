@@ -1,4 +1,8 @@
-export const gameState = { difficulty: null };
+export const gameState = { 
+    difficulty: null,
+    timerInterval: null,
+    timeLeft: 0,
+ };
 
 export function setDifficulty(level){
     gameState.difficulty = level;
@@ -18,9 +22,31 @@ export function setPools(laureates) {
 export function submitAndScore(userIds) {
     const per = { easy:100, medium:125, hard:150 }[gameState.difficulty];
     let correct = userIds.filter((id,i) => id===gameState.orderCorrect[i]).length;
-    let score = correct * per;
-    const pct = correct / userIds.length;
-    if (pct === 1) score += 200; else if (pct >= 0.8) score += 100;
+    let incorrect = userIds.length - correct;
+    let score = Math.round((correct * per) * (1 + (gameState.timeLeft / 100)) - (incorrect * 50));
+    if(score < 0) score = 0;
     gameState.score = score; gameState.finished = true;
-    return { correctCount: correct, score, pct};
+    return { correctCount: correct, score};
+}
+
+export function startTimer(difficulty) {
+  const timeLeftEl = document.getElementById("timer");
+    if(difficulty === 'easy') gameState.timeLeft = 30;
+    if(difficulty === 'medium') gameState.timeLeft = 45;
+    if(difficulty === 'hard') gameState.timeLeft = 60;
+  gameState.timerInterval = setInterval(() => {
+    if (gameState.timeLeft <= 0) {
+      stopTimer();
+      alert("Tid slut");
+      document.querySelector("#submit").click();
+      return;
+    }
+    timeLeftEl.textContent = `Tid kvar: ${gameState.timeLeft}`;
+    gameState.timeLeft--;
+  }, 1000);
+}
+
+export function stopTimer() {
+  clearInterval(gameState.timerInterval);
+  gameState.timerInterval = null;
 }
