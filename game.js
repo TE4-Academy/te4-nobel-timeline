@@ -22,7 +22,9 @@ export function setPools(laureates) {
 export function submitAndScore(userIds) {
     const per = { easy:100, medium:125, hard:150 }[gameState.difficulty];
     let correct = userIds.filter((id,i) => id===gameState.orderCorrect[i]).length;
-    let score = (correct * per) * (1 + (gameState.timeLeft / 100));
+    let incorrect = userIds.length - correct;
+    let score = Math.round((correct * per) * (1 + (gameState.timeLeft / 100)) - (incorrect * 50));
+    if(score < 0) score = 0;
     gameState.score = score; gameState.finished = true;
     return { correctCount: correct, score};
 }

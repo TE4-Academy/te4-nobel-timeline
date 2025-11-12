@@ -1,3 +1,5 @@
+import { getLeaderboard } from "./storage.js";
+
 export function renderStart(root) {
   root.innerHTML = `
   <section class="mx-auto max-w-2xl text-center">
@@ -52,4 +54,28 @@ export function renderBoard(root, cards) {
         `;
     list.appendChild(li);
   });
+}
+
+export function renderLeaderboard() {
+  const leaderboard = getLeaderboard();
+  const container = document.getElementById('leaderboard-entries');
+  
+  if (leaderboard.length === 0) {
+    container.innerHTML = '<p class="text-neutral-500 text-center py-4">Inga resultat än</p>';
+    return;
+  }
+    container.innerHTML = leaderboard.map((entry, index) => `
+    <div class="flex items-center justify-between gap-4 p-3 bg-white rounded-lg shadow-sm mb-2">
+      <div class="flex items-center gap-3">
+        <span class="font-bold text-lg w-6">${index + 1}.</span>
+        <div>
+          <p class="font-bold">${entry.name}</p>
+          <p class="text-sm text-neutral-500">
+            ${entry.correctCount}/${entry.total} rätt • ${entry.difficulty}
+          </p>
+        </div>
+      </div>
+      <span class="text-xl font-bold text-gold">${entry.score}</span>
+    </div>
+  `).join('');
 }

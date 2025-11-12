@@ -11,8 +11,19 @@
   <body class="bg-neutral-50">
     <header class="header top-0 pt-[env(safe-area-inset-top)] z-40">
       <h1 class="text-3xl text-center font-extrabold">Nobel Timeline</h1>
+      <section label ="name">
+      <div id="name-input" class="flex items-center justify-center my-4">
+      <input type="text" id="nameInput" class="nameInput" placeholder="Namn..."/>
+      </div>
+      </section>
     </header>
     <main id="app" class="game-container"></main>
+<section class="max-w-3xl mx-auto my-8">
+  <h3 class="font-bold text-2xl text-center mb-4">Leaderboard</h3>
+  <div id="leaderboard-entries" class="space-y-2">
+    <!-- Kommer fyllas med JavaScript -->
+  </div>
+</section>
     <script type="module" src="main.js"></script>
   </body>
 </html>
@@ -63,5 +74,6 @@
 .ring-wrong{box-shadow:0 0 0 2px #dc2626 inset;}
 .draggable { border-radius: 0.75rem; }
 .draggable:focus, .draggable:focus-visable { outline: none; box-shadow: 0 0 0 3px var(--gold) inset;  }
+.nameInput{ border-radius:0.5rem; padding:5px; border:1px solid var(--walnut); }
 
 </style>

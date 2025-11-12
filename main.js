@@ -9,9 +9,13 @@ import { readUserOrder } from "./dnd.js";
 import { saveLastScore } from "./storage.js";
 import { gameState } from "./game.js";
 import { startTimer } from "./game.js";
+import { stopTimer } from "./game.js";
+import { renderLeaderboard } from "./ui.js";
+import { addToLeaderboard } from "./storage.js";
 
 const app = document.getElementById("app");
 renderStart(app);
+renderLeaderboard();
 
 loadNobelData().then((list) => console.log("Antal pristagare:", list.length));
 
@@ -29,19 +33,21 @@ document.addEventListener("difficulty:selected", async (e) => {
     const order = readUserOrder(app);
     const { score, correctCount } = submitAndScore(order);
     saveLastScore({ score, correctCount, total: pool.length, ts: Date.now() });
+    const playerName =
+      document.getElementById("nameInput").value.trim() || "Anonym";
+    const entry = {
+      name: playerName,
+      score: Math.round(score),
+      correctCount,
+      total: pool.length,
+      difficulty: gameState.difficulty,
+      ts: Date.now(),
+    };
+    stopTimer();
+    addToLeaderboard(entry);
+    saveLastScore(entry);
+    renderLeaderboard();
 
-    //Den här koden gör i princip ingenting
-    const live =
-      document.getElementById("result-live") ||
-      (() => {
-        const d = document.createElement("div");
-        d.id = "result-live";
-        d.className = "sr-only";
-        document.body.appendChild(d);
-        return d;
-      })();
-    live.textContent = `Resultat klart. Du fick ${correctCount} rätt.`;
-    //till hit alltså
     const laureateMap = {};
     pool.forEach((l) => (laureateMap[l.id] = l));
 
