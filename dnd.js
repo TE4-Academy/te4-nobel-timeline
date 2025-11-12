@@ -3,6 +3,21 @@ export function wireDnD(root){
     let origin = null;
 
     const deck = root.querySelector('#deck');
+    const setStyleForContext = (card, inSlot) => {
+        if (!card) return;
+        if (inSlot) {
+            // Platt i tidslinjen
+            card.classList.remove('card-deck', 'shadow-sm');
+            card.classList.add('w-full');
+        } else {
+            // Tillbaka till kortleken
+            card.classList.add('card-deck', 'shadow-sm');
+            card.classList.remove('w-full');
+        }
+    };
+
+
+
     const ensurePlaceholder = (zone) => {
         if (!zone) return; 
         if (!zone.firstElementChild) {
@@ -28,9 +43,11 @@ export function wireDnD(root){
             if (hasCard) {
                 if (origin && origin.id === 'deck') {
                     deck.appendChild(existing);
+                    setStyleForContext(existing, false);
                 } else if (origin) {
                     origin.innerHTML = ''; //töm origin-zon
-                    origin.appendChild(existing); //flytta tillbaka kortet
+                     origin.appendChild(existing); //flytta tillbaka kortet
+                     setStyleForContext(existing, true);
                 }
             } else {
                 //om det bara fanns en placeholder -> rensa bort den 
@@ -39,12 +56,17 @@ export function wireDnD(root){
 
             //flytta aktiva kortet till målzonen
             zone.appendChild(active);
+            setStyleForContext(active, true);
 
             // om origin var en zon och blev tom -> återskapa placeholder 
             if (origin && origin !== deck  && origin.children.length === 0) {
                 ensurePlaceholder(origin);
             }
             active.classList.remove('ring-gold');
+                       // Om aktivt korts origin var deck -> återställ stil där
+           if (origin && origin.id === 'deck') {
+                setStyleForContext(active, true);
+            }
             active = null;
             origin = null;
         });
