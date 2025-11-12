@@ -47,7 +47,7 @@ document.addEventListener("difficulty:selected", async (e) => {
     // Bygg HTML för resultat-timelinen
     let resultHTML = `
         <section class="max-w-3xl mx-auto">
-        <div class="card text-center mb-6">
+        <div class="text-center mb-6">
         <h2 class="text-2xl font-bold mb-2">Resultat</h2>
         <p class="mb-4">Rätt: ${correctCount}/${pool.length} • Poäng: <span class="score-display">${score}</span></p>
         <button id="again" class="btn btn-outline py-4 text-base w-full md:w-auto">Spela igen</button>
