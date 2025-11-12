@@ -48,7 +48,7 @@ export function renderBoard(root, cards) {
   const timeline = root.querySelector("#timeline");
   for (let i = 0; i < cards.length; i++) {
     const zone = document.createElement("div");
-    zone.className = "timeline-slot px-3 py-2";
+    zone.className = "timeline-slot";
     zone.dataset.slot = i;
     zone.innerHTML = '<span data-placeholder class="text-sm">Släpp här</span>';
     timeline.appendChild(zone);
