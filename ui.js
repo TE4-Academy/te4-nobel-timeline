@@ -24,6 +24,7 @@ export function renderBoard(root, cards) {
 <section class="max-w-3xl mx-auto">
     <div class="top-[env(safe-area-inset-top)] z-10 bg-neutral-50/80 backdrop-blur pb-3">
     <h2 class="text-xl font-bold pt-2 text-center">Sortera nobelpristagarna i ordningen de vann nobelpriset, från äldst till yngst</h2>
+    <p id="timer" class="text-xl font-bold text-center">Tid kvar: </p>
     </div>
 
     <ul id="sortable-list" class="mt-2 space-y-3" aria-label="Sortera pristagarna"></ul>

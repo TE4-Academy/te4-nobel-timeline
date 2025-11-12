@@ -8,6 +8,7 @@ import { setPools, submitAndScore } from "./game.js";
 import { readUserOrder } from "./dnd.js";
 import { saveLastScore } from "./storage.js";
 import { gameState } from "./game.js";
+import { startTimer } from "./game.js";
 
 const app = document.getElementById("app");
 renderStart(app);
@@ -23,9 +24,9 @@ document.addEventListener("difficulty:selected", async (e) => {
   renderBoard(app, pool);
   wireDnD(app);
   setPools(pool);
+  startTimer(level);
   app.querySelector("#submit").addEventListener("click", () => {
     const order = readUserOrder(app);
-    if (order.length !== pool.length) return alert("Placera alla kort!");
     const { score, correctCount } = submitAndScore(order);
     saveLastScore({ score, correctCount, total: pool.length, ts: Date.now() });
 
