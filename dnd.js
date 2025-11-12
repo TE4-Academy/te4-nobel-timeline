@@ -1,81 +1,36 @@
 export function wireDnD(root) {
-  let active = null;
-  let origin = null;
+    const list = root.querySelector("#sortable-list");
+    if (!list) return;
 
-  const deck = root.querySelector("#deck");
-  const setStyleForContext = (card, inSlot) => {
-    if (!card) return;
-    if (inSlot) {
-      // Platt i tidslinjen
-      card.classList.remove("card-deck", "shadow-sm");
-      card.classList.add("w-full");
-    } else {
-      // Tillbaka till kortleken
-      card.classList.add("card-deck", "shadow-sm");
-      card.classList.remove("w-full");
-    }
-  };
+    let dragEl = null;
 
-  const ensurePlaceholder = (zone) => {
-    if (!zone) return;
-    if (!zone.firstElementChild) {
-      zone.innerHTML =
-        '<span data-placeholder class="text-sm">Släpp här</span>';
-    }
-  };
-  root.querySelectorAll("#deck .card").forEach((card) => {
-    card.addEventListener("pointerdown", (e) => {
-      e.preventDefault();
-      active = card;
-      origin = card.parentElement;
-      card.classList.add("ring-gold");
+    list.addEventListener("dragstart", (e) => {
+        const li = e.target.closest(".draggable");
+        if (!li) return;
+        dragEl = li;
+        e.dataTransfer.effectAllowed = "move";
+
+        e.dataTransfer.setData("text/plain", "");
+        li.classList.add("opacity-50");
     });
-  });
-  
-  root.querySelectorAll("#timeline > .timeline-slot").forEach((zone) => {
-    zone.addEventListener("pointerup", (e) => {
-      e.preventDefault();
-      if (!active) return;
 
-      // Om målzonen har ett kort (inte placeholder) -> flytta det till origin
-      const existing = zone.firstElementChild;
-      const hasCard = existing && !existing.hasAttribute("data-placeholder");
-      if (hasCard) {
-        if (origin && origin.id === "deck") {
-          deck.appendChild(existing);
-          setStyleForContext(existing, false);
-        } else if (origin) {
-          origin.innerHTML = ""; //töm origin-zon
-          origin.appendChild(existing); //flytta tillbaka kortet
-          setStyleForContext(existing, true);
+    list.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        const over = e.target.closest(".draggable");
+        if (!over || over === dragEl) return;
+        const rect = over.getBoundingClientRect();
+        const before = (e.clientY - rect.top) < rect.height / 2;
+        if (before) {
+            over.parentNode.insertBefore(dragEl, over);
+        } else {
+            over.parentNode.insertBefore(dragEl, over.nextSibling);
         }
-      } else {
-        //om det bara fanns en placeholder -> rensa bort den
-        zone.innerHTML = "";
-      }
-
-      //flytta aktiva kortet till målzonen
-      zone.appendChild(active);
-      setStyleForContext(active, true);
-
-      // om origin var en zon och blev tom -> återskapa placeholder
-      if (origin && origin !== deck && origin.children.length === 0) {
-        ensurePlaceholder(origin);
-      }
-      active.classList.remove("ring-gold");
-      // Om aktivt korts origin var deck -> återställ stil där
-      if (origin && origin.id === "deck") {
-        setStyleForContext(active, true);
-      }
-      active = null;
-      origin = null;
     });
-  });
+
+    list.addEventListener("drop", (e) => e.preventDefault());
 }
 
 export function readUserOrder(root) {
-  return [...root.querySelectorAll("#timeline > .timeline-slot")]
-    .map((z) => z.firstElementChild?.dataset?.id)
-    .filter(Boolean)
-    .map(Number);
+    return [...root.querySelectorAll("#sortable-list > .draggable")]
+    .map((el) => Number(el.dataset.id));
 }
