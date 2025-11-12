@@ -31,26 +31,24 @@ export function renderBoard(root, cards) {
     <div class="mt-4">
     <button id="submit" class="btn btn-secondary w-full py-4 text-base">Kolla ordning</button>
     </div>
-    </div>
-    </section>`;
-  const deck = root.querySelector("#deck");
+    </section>
+    `;
+
+  const list = root.querySelector("#sortable-list");
   cards.forEach((c) => {
-    const el = document.createElement("article");
-    el.className = "card card-interactive card-deck p-2 shadow-sm";
-    el.dataset.id = c.id;
-    el.innerHTML = `
-        <div class="flex items-center gap-4">
-        <img src="${c.imageUrl}" alt="${c.name}" class="w-14 h-14 sm:w-16 sm:h-16 object-cover rounded-lg" loading="lazy" sizes="(max-width:640px) 56px, 64px" />
-        <div><h4 class="font-bold">${c.name}</h4><span class="badge-gold">${c.category}</span></div>
-        </div>`;
-    deck.appendChild(el);
+    const li = document.createElement("li");
+    li.className =
+      "draggable card p-3 bg-white shadow-sm flex items-center gap-4";
+    li.draggable = true;
+    li.dataset.id = c.id;
+    li.innerHTML = `
+        <div class="shrink-0 grid place-items-center w-6 h-6 rounded-lg bg-neutral-100 text-neutral-500 select-none" aria-hidden="true">⋮⋮</div>
+        <img src="${c.imageUrl}" alt="${c.name}" class="w-14 h-14 sm:w-16 sm:h-16 object-cover rounded-lg" loading="lazy"/>
+        <div class="flex-1 min-w-0">
+        <h4 class="font-bold truncate">${c.name}</h4>
+        <span class="badge-gold">${c.category}</span>
+        </div>
+        `;
+    list.appendChild(li);
   });
-  const timeline = root.querySelector("#timeline");
-  for (let i = 0; i < cards.length; i++) {
-    const zone = document.createElement("div");
-    zone.className = "timeline-slot px-3 py-2";
-    zone.dataset.slot = i;
-    zone.innerHTML = '<span data-placeholder class="text-sm">Släpp här</span>';
-    timeline.appendChild(zone);
-  }
 }
