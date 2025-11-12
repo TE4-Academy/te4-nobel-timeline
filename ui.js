@@ -28,7 +28,7 @@ export function renderBoard(root, cards) {
     <div>
     <h3 class="text-xl mb-2">Timeline</h3>
     <div id="timeline" class="flex flex-col gap-3 sm:gap-4" aria-label="Timeline"></div>
-    <div class="fixed left-0 right-0 bottom-0 p-4 bg-white/90 backdrop-blur md:static md:p-0 md:bg-transparent">
+    <div class="p-4 bg-white/90 backdrop-blur md:static md:p-0 md:bg-transparent">
     <button id="submit" class="btn btn-secondary w-full md:w-auto py-4 text-base">Kolla ordning</button>
     </div>
     </div>

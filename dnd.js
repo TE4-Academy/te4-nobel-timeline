@@ -30,7 +30,15 @@ export function wireDnD(root) {
       origin = card.parentElement;
       card.classList.add("ring-gold");
     });
+
+    card.addEventListener("pointerup", (e) => {
+      e.preventDefault();
+      active = card;
+      origin = card.parentElement;
+      card.classList.remove("ring-gold");
+    });
   });
+  
   root.querySelectorAll("#timeline > .timeline-slot").forEach((zone) => {
     zone.addEventListener("pointerup", (e) => {
       e.preventDefault();
