@@ -11,7 +11,7 @@ export function wireDnD(root) {
         e.dataTransfer.effectAllowed = "move";
 
         e.dataTransfer.setData("text/plain", "");
-        li.classList.add("opacity-50");
+        
     });
 
     list.addEventListener("dragover", (e) => {
