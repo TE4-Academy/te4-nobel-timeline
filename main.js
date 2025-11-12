@@ -50,7 +50,7 @@ document.addEventListener("difficulty:selected", async (e) => {
         <div class="text-center mb-6">
         <h2 class="text-2xl font-bold mb-2">Resultat</h2>
         <p class="mb-4">Rätt: ${correctCount}/${pool.length} • Poäng: <span class="score-display">${score}</span></p>
-        <button id="again" class="btn btn-outline py-4 text-base w-full md:w-auto restart-btn">Spela igen</button>
+        <button id="again" class="btn btn-outline py-4 text-base w-2/4 md:w-auto restart-btn ">Spela igen</button>
         </div>
         <div class="space-y-3">
         `;

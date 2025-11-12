@@ -29,7 +29,7 @@ export function renderBoard(root, cards) {
     <ul id="sortable-list" class="mt-2 space-y-3" aria-label="Sortera pristagarna"></ul>
 
     <div class="mt-4">
-    <button id="submit" class="btn btn-secondary w-full py-4 text-base">Kolla ordning</button>
+    <button id="submit" class="btn btn-primary w-full py-4 text-base ">Kolla ordning</button>
     </div>
     </section>
     `;
