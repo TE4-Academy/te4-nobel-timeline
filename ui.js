@@ -18,40 +18,35 @@ export function renderStart(root) {
   });
 }
 
-export function renderBoard(root, cards) { 
-  root.innerHTML = `
-    <section class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
-    <div>
-    <h3 class="text-xl mb-2">Kort</h3>
-    <div id="deck" class="grid gap-3"></div>
-    </div>
-    <div>
-    <h3 class="text-xl mb-2">Timeline</h3>
-    <div id="timeline" class="flex flex-col gap-3 sm:gap-4" aria-label="Timeline"></div>
-    <div class="p-4 bg-white/90 backdrop-blur md:static md:p-0 md:bg-transparent">
-    <button id="submit" class="btn btn-secondary w-full md:w-auto py-4 text-base">Kolla ordning</button>
-    </div>
-    </div>
-    </section>`;
-  const deck = root.querySelector("#deck");
-  cards.forEach((c) => {
-    const el = document.createElement("article");
-    el.className = "card card-interactive card-deck p-2 shadow-sm";
-    el.dataset.id = c.id;
-    el.innerHTML = `
-        <div class="flex items-center gap-4">
-        <img src="${c.imageUrl}" alt="${c.name}" class="w-14 h-14 sm:w-16 sm:h-16 object-cover rounded-lg" loading="lazy" sizes="(max-width:640px) 56px, 64px" />
-        <div><h4 class="font-bold">${c.name}</h4><span class="badge-gold">${c.category}</span></div>
-        </div>`;
-    deck.appendChild(el);
-  });
-  const timeline = root.querySelector("#timeline");
-  for (let i = 0; i < cards.length; i++) {
-    const zone = document.createElement("div");
-    zone.className = "timeline-slot px-3 py-2";
-    zone.dataset.slot = i;
-    zone.innerHTML = '<span data-placeholder class="text-sm">Släpp här</span>';
-    timeline.appendChild(zone);
-  }
-}
 
+root.innerHTML = `
+<section class="max-w-3xl mx-auto">
+    <div class="sticky top-[env(safe-area-inset-top)] z-10 bg-neutral-50/80 backdrop-blur pb-3">
+    <h2 class="text-xl font-bold pt-2">Dra och släpp korten för att sortera pristagarna från äldst till yngst (efter år)</h2>
+    </div>
+
+    <ul id="sortable-list" class="mt-2 space-y-3" aria-label="Sortera pristagarna"></ul>
+
+    <div class="mt-4">
+    <button id="submit" class="btn btn-secondary w-full py-4 text-base">Kolla ordning</button>
+    </div>
+    </section>
+    `;
+
+    const list = root.querySelector("#sortable-list");
+    cards.forEach((c) => {
+        const li = document.createElement("li");
+        li.className = "draggable card p-3 bg-white shadow-sm flex items-center gap-4";
+        li.draggable = true;
+        li.dataset.id = c.id;
+        li.innerHTML = `
+        <div class="shrink-0 grid place-items-center w-6 h-6 rounded-lg bg-neutral-100 text-neutral-500 select-none" aria-hidden="true">⋮⋮</div>
+        <img src="${c.imageUrl}" alt="${c.name}" class="w-14 h-14 sm:w-16 sm:h-16 object-cover rounded-lg" loading="lazy"/>
+        <div class="flex-1 min-w-0">
+        <h4 class="font-bold truncate">${c.name}</h4>
+        <span class="badge-gold">${c.category}</span>
+        </div>
+        `;
+        list.appendChild(li);
+
+    });
