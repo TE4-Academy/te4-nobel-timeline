@@ -1,6 +1,6 @@
 export function renderStart(root) {
   root.innerHTML = `
-  <section class="card mx-auto max-w-2xl text-center">
+  <section class="mx-auto max-w-2xl text-center">
     <h2 class="text-2xl font-bold mb-6">Välj svårighetsgrad</h2>
     <div class="flex flex-col gap-4 items-center">
       <button class="btn btn-primary py-4 text-base w-3/4 sm:w-2/3 md:w-1/2" data-level="easy">Lätt (5)</button>
@@ -12,24 +12,24 @@ export function renderStart(root) {
   root.querySelectorAll("[data-level]").forEach((btn) => {
     btn.addEventListener("click", (e) => {
       const level = e.currentTarget.dataset.level;
-      document.dispatchEvent(new CustomEvent("difficulty:selected", { detail: { level } })
+      document.dispatchEvent(
+        new CustomEvent("difficulty:selected", { detail: { level } })
       );
     });
   });
 }
 
-export function renderBoard(root, cards) { 
+export function renderBoard(root, cards) {
   root.innerHTML = `
-    <section class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
-    <div>
-    <h3 class="text-xl mb-2">Kort</h3>
-    <div id="deck" class="grid gap-3"></div>
+<section class="max-w-3xl mx-auto">
+    <div class="sticky top-[env(safe-area-inset-top)] z-10 bg-neutral-50/80 backdrop-blur pb-3">
+    <h2 class="text-xl font-bold pt-2">Dra och släpp korten för att sortera pristagarna från äldst till yngst (efter år)</h2>
     </div>
-    <div>
-    <h3 class="text-xl mb-2">Timeline</h3>
-    <div id="timeline" class="flex flex-col gap-3 sm:gap-4" aria-label="Timeline"></div>
-    <div class="p-4 bg-white/90 backdrop-blur md:static md:p-0 md:bg-transparent">
-    <button id="submit" class="btn btn-secondary w-full md:w-auto py-4 text-base">Kolla ordning</button>
+
+    <ul id="sortable-list" class="mt-2 space-y-3" aria-label="Sortera pristagarna"></ul>
+
+    <div class="mt-4">
+    <button id="submit" class="btn btn-secondary w-full py-4 text-base">Kolla ordning</button>
     </div>
     </div>
     </section>`;
@@ -48,10 +48,9 @@ export function renderBoard(root, cards) {
   const timeline = root.querySelector("#timeline");
   for (let i = 0; i < cards.length; i++) {
     const zone = document.createElement("div");
-    zone.className = "timeline-slot";
+    zone.className = "timeline-slot px-3 py-2";
     zone.dataset.slot = i;
     zone.innerHTML = '<span data-placeholder class="text-sm">Släpp här</span>';
     timeline.appendChild(zone);
   }
 }
-
