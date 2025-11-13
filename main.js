@@ -31,10 +31,8 @@ document.addEventListener("difficulty:selected", async (e) => {
   startTimer(level);
   app.querySelector("#submit").addEventListener("click", () => {
     const order = readUserOrder(app);
-
     const { score, correctCount } = submitAndScore(order);
-    
-
+    saveLastScore({ score, correctCount, total: pool.length, ts: Date.now() });
     const playerName =
       document.getElementById("nameInput").value.trim() || "Anonym";
     const entry = {
