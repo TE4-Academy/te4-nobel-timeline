@@ -2,6 +2,7 @@ export const gameState = {
     difficulty: null,
     timerInterval: null,
     timeLeft: 0,
+    timeBonus: 0,
  };
 
 export function setDifficulty(level){
@@ -23,11 +24,22 @@ export function submitAndScore(userIds) {
     const per = { easy:100, medium:125, hard:150 }[gameState.difficulty];
     let correct = userIds.filter((id,i) => id===gameState.orderCorrect[i]).length;
     let incorrect = userIds.length - correct;
-    let score = Math.round((correct * per) * (1 + (gameState.timeLeft / 100)) - (incorrect * 25));
+    
+    const basePoints = correct * per;
+    const timeBonus = Math.round(basePoints * (gameState.timeLeft / 100));
+    let score = basePoints + timeBonus - (incorrect * 25);
+    
     if(score < 0) score = 0;
-    gameState.score = score; gameState.finished = true;
-    return { correctCount: correct, score};
+    gameState.score = score; 
+    gameState.finished = true;
+    gameState.timeBonus = timeBonus;
+    return { correctCount: correct, score, timeBonus};
 }
+
+
+
+
+
 
 export function showScore(){
   const per = { easy:100, medium:125, hard:150 }[gameState.difficulty];

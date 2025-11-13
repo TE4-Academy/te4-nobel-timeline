@@ -65,7 +65,7 @@ export function renderLeaderboard() {
     return;
   }
     container.innerHTML = leaderboard.map((entry, index) => `
-    <div class="flex items-center justify-between gap-4 p-3 bg-white rounded-lg shadow-sm mb-2">
+    <div class="flex items-center justify-between gap-4 p-3 bg-white rounded-lg shadow-sm mb-2 ring-gold">
       <div class="flex items-center gap-3">
         <span class="font-bold text-lg w-6">${index + 1}.</span>
         <div>
