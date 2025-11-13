@@ -56,7 +56,8 @@ document.addEventListener("difficulty:selected", async (e) => {
         <section class="max-w-3xl mx-auto">
         <div class="text-center mb-6">
         <h2 class="text-2xl font-bold mb-2">Resultat</h2>
-        <p class="mb-4">Rätt: ${correctCount}/${pool.length} • Poäng: <span class="score-display">${score}</span> • Tid kvar: ${gameState.timeLeft}</span></p>
+        <p class="mb-4">Rätt: ${correctCount}/${pool.length} • Poäng: <span class="score-display">${score}</span> • ${
+              gameState.timeLeft <= 0 ? "Tiden tog slut" : `Tid kvar: ${gameState.timeLeft}`}</p>
         <button id="again" class="btn btn-outline py-4 text-base w-2/4 md:w-auto restart-btn ">Spela igen</button>
         <p id="time-multiplier" class="text-2xl font-bold text-center py-2">Extrapoäng baserat på tid: ${gameState.timeBonus}</p>
         </div>
