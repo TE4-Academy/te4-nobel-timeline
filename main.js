@@ -1,3 +1,4 @@
+// kopplar ihop data, spel-logik, drag and drop och användargränssnittet
 import { renderStart } from "./ui.js";
 import { loadNobelData } from "./data.js";
 import { countBy, setDifficulty } from "./game.js";
@@ -13,28 +14,56 @@ import { stopTimer } from "./game.js";
 import { renderLeaderboard } from "./ui.js";
 import { addToLeaderboard } from "./storage.js";
 
+// huvudelementet där spelet ritas upp 
 const app = document.getElementById("app");
+// visa startskärmen
 renderStart(app);
+// visa leaderboard direkt när sidan laddas
 renderLeaderboard();
 
+// ladda nobeldata i bakgrunden 
 loadNobelData().then((list) => console.log("Antal pristagare:", list.length));
 
+// lyssna på cutom event som triggas när spelaren väljer svårighetsgrad
 document.addEventListener("difficulty:selected", async (e) => {
+    // hämta alla möjliga nobelpristagare 
   const all = await loadNobelData();
+
   const level = e.detail.level;
   setDifficulty(level);
+
+  // hur många kort ska användas för vald svårighetsgrad
   const count = countBy(level);
+
+  // välj ut ett antal slumpade pristagare
   const pool = shuffle(all).slice(0, count);
+
+  // rita ut spelbrädet med dessa pristagare
   renderBoard(app, pool);
+
+  // aktivera drag and drop på listan 
   wireDnD(app);
+
+  // spara poolen och den korrekta ordningen i gameState
   setPools(pool);
+
+  // starta timern för denna svårighetsgrad
   startTimer(level);
+
+  // koppla knappen "kolla ordning" så att den rättar spelet 
   app.querySelector("#submit").addEventListener("click", () => {
+    // läs av den ordning som spelaren har sorterat fram
     const order = readUserOrder(app);
+
+    // beräkna poäng och hur många som är rätt 
     const { score, correctCount } = submitAndScore(order);
     saveLastScore({ score, correctCount, total: pool.length, ts: Date.now() });
+
+    // hämta in namn från fältet ovanför spelet 
     const playerName =
       document.getElementById("nameInput").value.trim() || "Anonym";
+
+      // bygg upp ett resultatobjekt som sparas på leaderboarden
     const entry = {
       name: playerName,
       score: Math.round(score),
@@ -43,15 +72,19 @@ document.addEventListener("difficulty:selected", async (e) => {
       difficulty: gameState.difficulty,
       ts: Date.now(),
     };
+    // stoppa timern nu när rundan är klar 
     stopTimer();
+
+    // uppdatera leaderboarden och spara senaste resultatet
     addToLeaderboard(entry);
     saveLastScore(entry);
     renderLeaderboard();
 
+    // skapa en snabb uppslagskarta från id till pristagare
     const laureateMap = {};
     pool.forEach((l) => (laureateMap[l.id] = l));
 
-    // Bygg HTML för resultat-timelinen
+    // Bygg upp HTML för resultatskärmen 
     let resultHTML = `
         <section class="max-w-3xl mx-auto">
         <div class="text-center mb-6">
@@ -64,6 +97,7 @@ document.addEventListener("difficulty:selected", async (e) => {
         <div class="space-y-3">
         `;
 
+        // lägg till ett kort i resultatlistan för varje placerad pristagare
     order.forEach((placedId, index) => {
       const laureate = laureateMap[placedId];
       const correctId = gameState.orderCorrect[index];
@@ -94,7 +128,9 @@ document.addEventListener("difficulty:selected", async (e) => {
         </div>
         </section>`;
 
+        // visa resultatskärmen istället för spelet 
     app.innerHTML = resultHTML;
+    // restart-knappen laddar om sidan och börjar om från startskärmen
     app
       .querySelector("#again")
       .addEventListener("click", () => location.reload());

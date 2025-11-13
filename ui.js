@@ -1,5 +1,7 @@
+// bygger upp användargränssnittet: startskärm, spelbråde och leaderboard
 import { getLeaderboard } from "./storage.js";
 
+// visa startskärmen där spelaren väljer svårighetsgrad
 export function renderStart(root) {
   root.innerHTML = `
   <section class="mx-auto max-w-2xl text-center">
@@ -11,9 +13,12 @@ export function renderStart(root) {
     </div>
   </section>`;
 
+  // koppla click-event till varje svårighetsknapp
   root.querySelectorAll("[data-level]").forEach((btn) => {
     btn.addEventListener("click", (e) => {
       const level = e.currentTarget.dataset.level;
+
+      // skicka en custom event så main.js kan reagera och starta spelet 
       document.dispatchEvent(
         new CustomEvent("difficulty:selected", { detail: { level } })
       );
@@ -21,6 +26,7 @@ export function renderStart(root) {
   });
 }
 
+// visa själva spelet: lista med kort som går att sortera och knapp för att skicka in
 export function renderBoard(root, cards) {
   root.innerHTML = `
 <section class="max-w-3xl mx-auto">
@@ -38,6 +44,8 @@ export function renderBoard(root, cards) {
     `;
 
   const list = root.querySelector("#sortable-list");
+
+  // skapa ett list-element per nobelpristagare
   cards.forEach((c) => {
     const li = document.createElement("li");
     li.className =
@@ -56,14 +64,18 @@ export function renderBoard(root, cards) {
   });
 }
 
+// renderar leaderboard-sektionen under spelet 
 export function renderLeaderboard() {
   const leaderboard = getLeaderboard();
   const container = document.getElementById('leaderboard-entries');
   
+  // om det inte finns några sparade resultat
   if (leaderboard.length === 0) {
     container.innerHTML = '<p class="text-neutral-500 text-center py-4">Inga resultat än</p>';
     return;
   }
+
+  // skapa en rad per resultat i leaderboarden
     container.innerHTML = leaderboard.map((entry, index) => `
     <div class="flex items-center justify-between gap-4 p-3 bg-white rounded-lg shadow-sm mb-2 ring-gold">
       <div class="flex items-center gap-3">
