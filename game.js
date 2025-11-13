@@ -54,7 +54,6 @@ export function startTimer(difficulty) {
   gameState.timerInterval = setInterval(() => {
     if (gameState.timeLeft <= 0) {
       stopTimer();
-      alert("Tid slut");
       document.querySelector("#submit").click();
       return;
     }
