@@ -7,7 +7,7 @@ export function wireDnD(root) {
     let dragElement = null;
     // Variabel som håller den visuella klonen när man touchar på mobil
     let touchClone = null;
-    // Variabel som lagrar startpositionen för touch (används ej just nu men kan vara användbar för framtida features)
+    // Variabel som lagrar startpositionen för touch
     let touchStartY = 0;
     
     //För pc
@@ -18,10 +18,6 @@ export function wireDnD(root) {
         if (!list) return;
         // Spara det element som dras
         dragElement = list;
-        // Sätt vilken typ av drag-operation som är tillåten (move = flytta)
-        element.dataTransfer.effectAllowed = "move";
-        // Sätt data som överförs (krävs för att draggen ska fungera, även om vi inte använder datan)
-        element.dataTransfer.setData("text/plain", "");
     });
 
     // Lyssnare för när användaren drar över ett annat element
@@ -35,6 +31,7 @@ export function wireDnD(root) {
         // Hämta elementets position och storlek
         const rect = over.getBoundingClientRect();
         // Kolla om musen är i övre halvan av elementet (då ska vi placera före)
+        // before blir true eller false beroende på ifall det man drar är över eller under hälften av det hovrar över
         const before = (element.clientY - rect.top) < rect.height / 2;
         // Om musen är i övre halvan, sätt in det dragna elementet före
         if (before) {
@@ -44,11 +41,6 @@ export function wireDnD(root) {
             over.parentNode.insertBefore(dragElement, over.nextSibling);
         }
     });
-
-    // Lyssnare för när användaren släpper elementet
-    list.addEventListener("drop", (element) => element.preventDefault());
-
-
 
     //För mobil
     // Lyssnare för när användaren börjar röra skärmen

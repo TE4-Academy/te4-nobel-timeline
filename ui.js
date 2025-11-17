@@ -49,10 +49,13 @@ export function renderBoard(root, cards) {
   cards.forEach((c) => {
     const li = document.createElement("li");
     li.className =
-      "draggable card p-3 bg-white shadow-sm flex items-center gap-4";
+     //bra fix för scroll problemet oskar upptäckte
+      "draggable card p-3 w-10/12 md:w-full bg-white shadow-sm flex items-center gap-4";
     li.draggable = true;
     li.dataset.id = c.id;
-    li.innerHTML = `
+    li.innerHTML = 
+    //Första raden är onödig tycker jag
+    `
         <div class="shrink-0 grid place-items-center w-6 h-6 rounded-lg bg-neutral-100 text-neutral-500 select-none" aria-hidden="true">⋮⋮</div>
         <img src="${c.imageUrl}" alt="${c.name}" class="w-14 h-14 sm:w-16 sm:h-16 object-cover rounded-lg" loading="lazy"/>
         <div class="flex-1 min-w-0">
