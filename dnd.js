@@ -13,11 +13,11 @@ export function wireDnD(root) {
     //För pc
     list.addEventListener("dragstart", (element) => {
         // Hitta närmaste .draggable element (om användaren klickar på t.ex. en bild inuti)
-        const list = element.target.closest(".draggable");
+        const currentCard = element.target.closest(".draggable");
         // Om inget draggable element hittades, gör ingenting
-        if (!list) return;
+        if (!currentCard) return;
         // Spara det element som dras
-        dragElement = list;
+        dragElement = currentCard;
     });
 
     // Lyssnare för när användaren drar över ett annat element
@@ -46,21 +46,21 @@ export function wireDnD(root) {
     // Lyssnare för när användaren börjar röra skärmen
     list.addEventListener("touchstart", (element) => {
         // Hitta närmaste .draggable element
-        const list = element.target.closest(".draggable");
+        const currentCard = element.target.closest(".draggable");
         // Om inget draggable element hittades, gör ingenting
-        if (!list) return;
+        if (!currentCard) return;
         
         // Spara det element som ska flyttas
-        dragElement = list;
+        dragElement = currentCard;
         // Spara startpositionen för touch (första fingrets Y-koordinat)
         touchStartY = element.touches[0].clientY;
         
         // Skapa en visuell klon av elementet som följer fingret
-        touchClone = list.cloneNode(true); // true = klona alla barn också
+        touchClone = currentCard.cloneNode(true); // true = klona alla barn också
         // Positionera klonen med fixed position (följer inte scrollning)
         touchClone.style.position = "fixed";
         // Sätt samma bredd som originalet
-        touchClone.style.width = list.offsetWidth + "px";
+        touchClone.style.width = currentCard.offsetWidth + "px";
         // Gör klonen lite genomskinlig så man ser att det är en kopia
         touchClone.style.opacity = "0.8";
         // Förhindra att klonen kan klickas/touchas (så vi kan hitta element under den)
@@ -68,14 +68,14 @@ export function wireDnD(root) {
         // Sätt hög z-index så klonen visas ovanpå allt annat
         touchClone.style.zIndex = "1000";
         // Positionera klonen på samma X-position som originalet
-        touchClone.style.left = list.getBoundingClientRect().left + "px";
+        touchClone.style.left = currentCard.getBoundingClientRect().left + "px";
         // Centrera klonen vertikalt på fingrets position
-        touchClone.style.top = element.touches[0].clientY - (list.offsetHeight / 2) + "px";
+        touchClone.style.top = element.touches[0].clientY - (currentCard.offsetHeight / 2) + "px";
         // Lägg till klonen i body (utanför listan så den kan röra sig fritt)
         document.body.appendChild(touchClone);
         
         // Gör originalelementet genomskinligt så man ser var det kommer att placeras
-        list.style.opacity = "0.3";
+        currentCard.style.opacity = "0.3";
     }, { passive: true }); // passive: true = förbättrar scroll-prestanda
 
     // Lyssnare för när användaren rör fingret över skärmen
