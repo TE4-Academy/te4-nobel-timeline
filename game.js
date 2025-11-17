@@ -30,7 +30,12 @@ export function setPools(laureates) {
   // skapa en lista med id:n i korrekt kronologisk ordning
   // vi sorterar på year och plockar sedan ut id för varje pristagare
   gameState.orderCorrect = [...laureates]
+  // används för att sortera listan
     .sort((a, b) => a.year - b.year)
+  // används för att omvandla en lista till en ny lista,
+  // för varje objekt x i listan
+  // ta ut ENDAST id
+  // bygg en helt ny lista med id-värden
     .map((x) => x.id);
 }
 
@@ -39,7 +44,11 @@ export function submitAndScore(userIds) {
   // poäng per rätt svar beroende på svårighetsgrad
   const per = { easy: 100, medium: 125, hard: 150 }[gameState.difficulty];
 
-  // räkna antal rätt placerade kort (jämför användarens ordning med den korrekta ordningen)
+  // räkna antal rätt placerade kort 
+  // räkna antal fel placerade kort
+  // (jämför användarens ordning med den korrekta ordningen)
+  // .filter() går igenom varje element i listan userIds, 
+  // "är användarens id på plats i samma som det korrekta id:t på plats i"
   let correct = userIds.filter(
     (id, i) => id === gameState.orderCorrect[i]
   ).length;
@@ -48,6 +57,7 @@ export function submitAndScore(userIds) {
   const basePoints = correct * per;
 
   // tidsbonus beräknas som en procentandel baserat på timeLeft
+  // Math.round, för att få ett heltal
   // exempel: om timeLeft är 50, blir det 50 % av baspoängen
   const timeBonus = Math.round(basePoints * (gameState.timeLeft / 100));
 
@@ -81,7 +91,8 @@ export function startTimer(difficulty) {
   if (difficulty === "medium") gameState.timeLeft = 45;
   if (difficulty === "hard") gameState.timeLeft = 60;
 
-  // uppdatera timern varje sekund 
+  
+  // setInterval() kör en funktion upprepade gånger med ett visst intervall
   gameState.timerInterval = setInterval(() => {
     if (gameState.timeLeft <= 0) {
         // om tiden tagit slut, stoppa timern och trigga en inlämning automatiskt
