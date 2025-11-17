@@ -24,7 +24,7 @@ renderLeaderboard();
 // ladda nobeldata i bakgrunden 
 loadNobelData().then((list) => console.log("Antal pristagare:", list.length));
 
-// lyssna på cutom event som triggas när spelaren väljer svårighetsgrad
+// lyssna på custom event som triggas när spelaren väljer svårighetsgrad
 document.addEventListener("difficulty:selected", async (e) => {
     // hämta alla möjliga nobelpristagare 
   const all = await loadNobelData();
