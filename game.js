@@ -87,7 +87,7 @@ export function startTimer(difficulty) {
   const timeLeftEl = document.getElementById("timer");
 
   // sätt starttid beroende på svårighetsgrad
-  if (difficulty === "easy") gameState.timeLeft = 30;
+  if (difficulty === "easy") gameState.timeLeft = 3000;
   if (difficulty === "medium") gameState.timeLeft = 45;
   if (difficulty === "hard") gameState.timeLeft = 60;
 
