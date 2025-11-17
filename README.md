@@ -1,125 +1,78 @@
-# Nobel Quest - Starter Kit
-
-Tailwind CSS setup för Nobel Quest-projektet.
-
-## Snabbstart
-
-### 1. Kopiera starter-kit till ditt projekt
-```powershell
-# I ditt team-repo
-xcopy ..\nobel-fas1\starter-kit\* . /E /I
-```
-
-### 2. Installera Tailwind och bygg CSS
-```powershell
-npm install
-npm run build
-```
-
-Detta skapar `styles.css` från `src/input.css` + `tailwind.config.js`.
-
-### 3. Öppna index.html
-Starta Live Server i VS Code och öppna `index.html` för att se alla komponenter.
+Nobel Timeline
+Ett interaktivt och mobilanpassat timeline-spel där spelaren placerar Nobelpristagare i rätt kronologisk ordning. Sortera pristagarna från den som fick priset tidigast till den som fick det senast – och tävla om högst poäng på leaderboarden!
 
 ---
 
-## Hur fungerar det?
-
-**Tailwind CSS** är ett verktyg som läser dina filer och genererar CSS.
-
-```
-src/input.css + tailwind.config.js  →  [npm run build]  →  styles.css
-(source med @apply)   (Nobel färger)                         (färdig CSS)
-```
-
-**Du behöver INTE köra npm under development** - `styles.css` är redan klar att använda!
-
-**Endast om du vill ändra:**
-- Nobel-färger → editera `tailwind.config.js` → kör `npm run build`
-- Custom komponenter → editera `src/input.css` → kör `npm run build`
+Funktioner
+*Drag & Drop* (stöd för både mus och mobil/touch)
+*Namnlagring i LocalStorage* – leaderboarden sparas lokalt
+*Tre svårighetsgrader*  
+   Lätt (5 kort) – 100 poäng per rätt  
+   Medel (8 kort) – 125 poäng per rätt  
+   Svår (12 kort) – 150 poäng per rätt
+   Fel svar kostar -25 poäng** (poängen kan aldrig gå under noll)
+   Tidsbaserad bonus** – kvarvarande tid omvandlas till multiplikator  
+  *Exempel: 30 sekunder kvar = ×1.3 på slutpoängen
+ Mobil first-design
+ Leaderboard som uppdateras efter varje spelomgång
 
 ---
 
-## Filer
+Hur spelet fungerar
+  1. Ange ditt namn (sparas automatiskt i LocalStorage).
+  2. Välj svårighetsgrad.
+  3. Dra och släpp korten (Nobelpristagarna) i den ordning du tror att de fick sitt Nobelpris.
+  4. Tryck på Kolla ordning för att få resultat.
+  5. Dina poäng sparas och visas i leaderboarden.
 
-### `index.html`
-Demo-fil som visar alla komponenter i praktiken. Öppna med Live Server och kopiera koden du behöver.
+---
+Projektstruktur
+  Spelet är byggt i ES6 JavaScript och består av följande filer:
+   index.html
+   dnd.js # Drag & drop-logik
+   game.js # Spelets huvudlogik
+   data.js # Data om Nobelpristagare
+   main.js # Initiering och koppling av delar
+   storage.js # LocalStorage-funktioner
 
-### `styles.css` (GENERERAD)
-Färdig CSS-fil med Tailwind utilities, Nobel-färger och custom komponenter.
-
-**⚠️ Editera inte denna fil** - den genereras från `src/input.css`.
-
-### `src/input.css`
-Source-fil med custom komponenter som `.btn`, `.card`, `.modal` etc.
-
-**Endast för avancerade användare** som vill skapa egna komponenter med `@apply`.
-
-### `tailwind.config.js`
-Konfiguration med Nobel-färger, fonts och animationer.
-
-**Endast för avancerade användare** som vill ändra färgpaletten.
-
-### `nobel-data.json`
-Data om 75 nobelpristagare - se huvudprojektets README för användning.
 
 ---
 
-## Vill du ändra något?
-
-### Ändra Nobel-färger
-1. Editera `tailwind.config.js`
-2. Kör `npm run build`
-3. Refresha browsern
-
-### Skapa egen komponent
-1. Editera `src/input.css`:
-```css
-.my-component {
-  @apply bg-white rounded-lg p-4 shadow-md;
-}
-```
-2. Kör `npm run build`
-3. Använd `<div class="my-component">...</div>`
-
-### Watch-mode (auto-rebuild)
-```powershell
-npm run dev
-```
-Lämna terminalen öppen - `styles.css` uppdateras vid varje ändring.
+Tekniker & verktyg
+   HTML5
+   ES6 JavaScript
+   Tailwind CSS
+   LocalStorage
+   Utvecklat i VS Code
 
 ---
 
-## FAQ
+Mobilanpassning
+  Spelet är byggt mobile-first och stödjer:
+   Touch-dragning
+   Responsiv layout
+   Enkelt gränssnitt för små skärmar
 
-### "npm: command not found"
-Installera Node.js från https://nodejs.org/
+---
+Teamet bakom projektet
+  Backend Developers:  
+    - Christian  
+    - Liam  
 
-### "Tailwind-klasser fungerar inte"
-Kolla att `<link rel="stylesheet" href="styles.css">` finns i `<head>`.
+  UI/UX Designer:  
+    Arthur  
 
-### "Nobel-färger fungerar inte"
-Kör `npm run build` igen.
+  Projektledare: 
+    Melvin  
 
-### "Mina ändringar syns inte"
-- Kör `npm run build`
-- Refresha browsern (Ctrl+Shift+R)
-- Kontrollera att du editerat `src/input.css` (inte `styles.css`)
-
-### "Vad är skillnaden mellan styles.css och src/input.css?"
-- `src/input.css` = source-fil (du editerar här)
-- `styles.css` = genererad fil (editera aldrig manuellt)
-
-### "Behöver jag köra npm under development?"
-Nej! `styles.css` är redan genererad. Kör npm endast om du ändrar färger/komponenter.
+Alla har bidragit till utvecklingen på olika sätt.
 
 ---
 
-## Resurser
+ Framtida förbättringar (valfritt)
+   Online-leaderboard
+   Fler kategorier eller teman (t.ex. tidsperioder)
+   Ljud- och animationsfeedback
+   Dark mode
 
-- **Tailwind Docs:** https://tailwindcss.com/docs
-- **Demo:** `index.html` i denna mapp
-- **Huvudprojekt README:** Se `../README.md` för komponenter och kodexempel
-
-**Lycka till!**
 
